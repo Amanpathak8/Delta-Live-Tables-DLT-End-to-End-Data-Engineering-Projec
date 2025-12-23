@@ -1,153 +1,69 @@
-End-to-End Data Engineering Pipeline using Databricks Delta Live Tables (DLT)
+# End-to-End Pipeline using Databricks Delta Live Tables (DLT)
 
-This repository contains an end-to-end Data Engineering project built using Databricks Delta Live Tables (DLT). The project demonstrates how to design a scalable, streaming-first ETL pipeline following the Bronze → Silver → Gold Lakehouse architecture.
+This repository contains an end-to-end Data Engineering project built using **Databricks Delta Live Tables (DLT)**.  
+It showcases how to design a scalable, streaming-first ETL pipeline following the **Bronze → Silver → Gold Lakehouse architecture**.
 
-Project Overview
+---
 
-The goal of this project is to ingest raw data, transform it incrementally, and create analytics-ready fact and dimension tables for downstream consumers such as Data Scientists, BI tools, and applications.
+## Project Overview
 
-The implementation uses Delta Live Tables with:
+The objective of this project is to ingest raw datasets, apply incremental transformations, and create analytics-ready **fact and dimension tables** for downstream consumers such as Data Scientists, BI tools, and reporting systems.
 
-Streaming ingestion
+Key capabilities include:
+- Streaming data ingestion  
+- Incremental transformations  
+- Auto CDC processing  
+- SCD Type 1 and Type 2 logic  
+- Production-grade Lakehouse patterns  
 
-Incremental processing
+---
 
-Auto CDC
+## Architecture: Bronze → Silver → Gold
 
-SCD Type 1 and Type 2 logic
+### **1. Bronze Layer (Raw Ingestion)**  
+- Ingests raw CSV data using **Databricks Auto Loader (cloudFiles)**  
+- Stored as **append-only streaming tables**  
+- Datasets ingested:
+  - Customers  
+  - Products  
+  - Sales  
+  - Stores  
 
-Architecture: Bronze → Silver → Gold
-Bronze Layer (Raw Ingestion)
+---
 
-Ingests raw CSV files using Databricks Auto Loader (cloudFiles)
+### **2. Silver Layer (Transformation and Cleaning)**  
+- Builds **streaming views** on top of Bronze tables  
+- Applies transformation logic such as:
+  - Column standardization  
+  - Derived fields  
+  - Data cleaning  
+  - Adding process timestamps  
+- Creates **streaming Silver tables** using **SCD Type 1 (upsert logic)**  
+- Output is ready for Data Science and analytics consumption  
 
-Stores data as append-only streaming tables
+---
 
-Entities ingested:
+### **3. Gold Layer (Analytics and Dimensional Modeling)**  
+- Consumes **Silver Views** instead of Silver tables for loose coupling  
+- Generates **Gold Views** for aggregated and modeled data  
+- Creates:
+  - **Dimension tables using SCD Type 2** (historical tracking)  
+  - **Fact table using SCD Type 1**  
+- Uses **DLT Auto CDC flows** for change management  
 
-Customers
+---
 
-Products
+## Key Concepts Implemented
 
-Sales
+- Delta Live Tables (DLT)  
+- Auto Loader (cloudFiles)  
+- Streaming ETL  
+- SCD Type 1 and Type 2  
+- Auto CDC  
+- Fact and Dimension modeling  
+- Databricks Lakehouse best practices  
 
-Stores
+---
 
-Silver Layer (Transformation and Cleaning)
+## Project Structure
 
-Builds streaming views on top of Bronze tables
-
-Applies transformations such as:
-
-Standardizing columns
-
-Adding derived fields
-
-Cleaning values
-
-Adding process timestamps
-
-Creates streaming tables using SCD Type 1 (upserts)
-
-Optimized for direct Data Science / analytics consumption
-
-Gold Layer (Analytics and Data Modeling)
-
-Consumes Silver Views instead of tables for better decoupling
-
-Creates Gold analytical views
-
-Builds:
-
-Dimension tables using SCD Type 2 (keeps history)
-
-Fact table using SCD Type 1
-
-Implements DLT Auto CDC flows for change tracking
-
-Key Concepts Implemented
-
-Delta Live Tables (DLT)
-
-Auto Loader (cloudFiles)
-
-Streaming Tables and Streaming Views
-
-Incremental ETL design
-
-SCD Type 1 and SCD Type 2
-
-Fact and Dimension Modeling
-
-Auto CDC flows
-
-Lakehouse architecture best practices
-
-Project Structure
-DLT_ENDTOEND1/
-│
-├── transformations/
-│   ├── bronze/
-│   │   └── ingestion.py
-│   │
-│   ├── silver/
-│   │   ├── customers_silver.py
-│   │   ├── products_silver.py
-│   │   ├── sales_silver.py
-│   │   └── store_silver.py
-│   │
-│   ├── gold/
-│   │   ├── dim_customers.py
-│   │   ├── dim_products.py
-│   │   ├── dim_stores.py
-│   │   └── fact_sales.py
-│
-├── utilities/
-│   └── utils.py
-│
-└── README.md
-
-Technologies Used
-
-Databricks
-
-Delta Live Tables
-
-Apache Spark (PySpark)
-
-Delta Lake
-
-Auto Loader (cloudFiles)
-
-Streaming ETL
-
-Pipeline Features
-
-Fully streaming-first architecture
-
-Incremental, idempotent transformations
-
-Schema evolution support
-
-SCD Type 1 and Type 2 logic
-
-Auto CDC implementation
-
-Production-style Lakehouse design
-
-Use Cases
-
-Real-time analytics
-
-Historical dimension tracking
-
-Dashboarding (Power BI, Tableau, Databricks SQL)
-
-Feature engineering for Machine Learning
-
-Data Science exploration
-
-Author
-
-Aman pathak 
-Data Engineering | Databricks | Streaming ETL | Lakehouse Architectures
