@@ -116,27 +116,3 @@ All Gold-layer tables are **optimized Delta tables** for fast reads.
 
 ---
 
-## Project Structure
-
-DLT_ENDTOEND1/
-│
-├── transformations/
-│ ├── bronze/
-│ │ └── ingestion.py
-│ │
-│ ├── silver/
-│ │ ├── customers_silver.py
-│ │ ├── products_silver.py
-│ │ ├── sales_silver.py
-│ │ └── store_silver.py
-│ │
-│ ├── gold/
-│ │ ├── dim_customers.py
-│ │ ├── dim_products.py
-│ │ ├── dim_stores.py
-│ │ └── fact_sales.py
-│
-├── utilities/
-│ └── utils.py
-│
-└── README.md
